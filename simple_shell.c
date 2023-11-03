@@ -12,14 +12,29 @@
 
 int main(int ac, char **av)
 {
-    char *line = NULL;
-    char **command = NULL;
+    char *ptr;
+    char **inp;
     int state;
+    ptr = NULL;
+    inp = NULL;
+    state = 0;
+    (void)ac; (void)av;
+
     while(1)
     {
-        line = read_input();
-        command = tokenizer(line);
-        state = _execute(command, av);
+        ptr = read_in();
+        if (!ptr)
+        {
+            if (isatty(STDIN_FILENO))
+                write(STDOUT_FILENO, "\n", 1);
+            return state;
+        }
+        inp = split(ptr);
+        if (!inp)
+            continue;
+
+       state = execute(inp, av);
     }
-    
+
+    return 0;
 }

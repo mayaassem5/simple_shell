@@ -1,5 +1,5 @@
-#ifndef _SIMPLESHELL_
-#define _SIMPLESHELL_
+#ifndef _SHELL_
+#define _SHELL_
 
 #include <stdio.h>
 #include <string.h>
@@ -11,8 +11,10 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+extern char **environ;
 
-
-
+char *read_in(void);
+char **split(char *str);
+int execute(char **command, char **av);
 
 #endif
