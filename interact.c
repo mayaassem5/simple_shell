@@ -7,16 +7,15 @@
 
 void interact(void)
 {
-    int interactive_mode = isatty(fileno(stdin));
+	int interactive_mode = isatty(fileno(stdin));
 
-    if (interactive_mode)
-        printf("~$ ");
-
+	if (interactive_mode)
+		printf("~$ ");
 }
 
 /**
  * failed - checks failed
- * 
+ *
  * @len: len
  *
  * Return: 1 if failed
@@ -24,12 +23,11 @@ void interact(void)
 
 int failed(int len)
 {
-    if (len <= 0)
-    {
-        if (isatty(STDIN_FILENO))
-            printf("~$ ");
-            
-        return (1);
-    }
-    return (0);
+	if (len <= 0)
+	{
+		if (isatty(STDIN_FILENO))
+			printf("~$ ");
+		return (1);
+	}
+	return (0);
 }
