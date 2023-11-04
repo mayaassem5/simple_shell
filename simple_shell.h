@@ -28,5 +28,7 @@ char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
 
 unsigned int _strspn(char *s, char *accept);
+char *_strtok(char *str, char *delimiters);
+char *_strpbrk(char *s, char *accept);
 
 #endif
