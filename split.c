@@ -18,11 +18,11 @@ char **tokenize(char *str)
 	if (tokens == NULL)
 		return (NULL);
 
-	token = strtok(str, delimiters);
+	token = _strtok(str, delimiters);
 	while (token != NULL)
 	{
 		tokens[i++] = token;
-		token = strtok(NULL, delimiters);
+		token = _strtok(NULL, delimiters);
 	}
 	tokens[i] = NULL;
 	free(token);
