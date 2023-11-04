@@ -27,32 +27,61 @@ unsigned int _strspn(char *s, char *accept)
 	return (i);
 }
 
+/**
+ * _strtok - Tokinize
+ * @str: initial segment.
+ * @delimiters: delimiters
+ * Return: 0 always
+ */
 char *_strtok(char *str, char *delimiters)
 {
-    char *x = NULL;
-    char *token = NULL;
+	static char *nextToken = NULL;
+	char *token;
 
-    if (str != NULL) {
-        x = str;
-    }
+	if (str != NULL)
+		nextToken = str;
 
-    if (x == NULL) {
-        return (NULL);
-    }
+	if (nextToken == NULL)
+		return (NULL);
 
-    token = x + _strspn(x, delimiters);
+	nextToken += _strspn(nextToken, delimiters);
 
-    if (*token == '\0') {
-        x = NULL;
-        return (NULL);
-    }
+	if (*nextToken == '\0')
+	{
+		nextToken = NULL;
+		return (NULL);
+	}
 
-    x = token + (_strspn(token, delimiters));
+	token = nextToken;
+	nextToken = _strpbrk(nextToken, delimiters);
 
-    if (*x != '\0') {
-        *x = '\0';
-        x++;
-    }
+	if (nextToken != NULL)
+	{
+		*nextToken = '\0';
+		nextToken++;
+	}
 
-    return (token);
+	return (token);
+}
+
+/**
+ * _strpbrk - searches a string for any of a set of bytes.
+ * @s: first string.
+ * @accept: second string.
+ * Return: a pointer to the byte in s that matches one of the
+ * bytes in accept, or NULL if no such byte is found.
+ */
+char *_strpbrk(char *s, char *accept)
+{
+	unsigned int i, j;
+
+	for (i = 0; *(s + i) != '\0'; i++)
+	{
+		for (j = 0; *(accept + j) != '\0'; j++)
+		{
+			if (*(s + i) == *(accept + j))
+				return (s + i);
+		}
+	}
+	return ('\0');
 }
