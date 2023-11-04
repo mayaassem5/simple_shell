@@ -1,15 +1,14 @@
 #include "simple_shell.h"
-#include <stdio.h>
 
-/*
- * main - main func
+/**
+ * main - Entry point of the program.
  *
- * @ac: arg counts
- * @av: arg vectors
- * @env: env arg
+ * @ac: Number of command-line arguments.
+ * @av: Array of command-line arguments.
+ * @env: Array of environment variables.
  *
- * Return: 0 always
-*/
+ * Return: 0 for success.
+ */
 
 int main(int ac, char **av, char **env)
 {
