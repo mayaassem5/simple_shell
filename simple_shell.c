@@ -17,7 +17,7 @@ int main(int ac, char **av, char **env)
 	ssize_t inp = 0, exec = 0;
 	char **split;
 	char *pathvar = (getenv("PATH")) ? getenv("PATH") : "";
-	char *path = strdup(pathvar);
+	char *path = _strdup(pathvar);
 	(void)ac;
 
 	interact();
@@ -43,7 +43,7 @@ int main(int ac, char **av, char **env)
 		if (!_strcmp(split[0], "exit"))
 			break;
 		free(path);
-		path = strdup(pathvar);
+		path = _strdup(pathvar);
 		exec = execute(split, path, av);
 		free(line), line = NULL;
 		free(split), split = NULL;
