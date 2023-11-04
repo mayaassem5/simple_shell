@@ -40,7 +40,7 @@ int main(int ac, char **av, char **env)
 			interact();
 			continue;
 		}
-		if (!strcmp(split[0], "exit"))
+		if (!_strcmp(split[0], "exit"))
 			break;
 		free(path);
 		path = strdup(pathvar);
