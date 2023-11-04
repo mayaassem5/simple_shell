@@ -33,16 +33,21 @@ unsigned int _strspn(char *s, char *accept)
  * @delimiters: delimiters
  * Return: 0 always
  */
+
 char *_strtok(char *str, char *delimiters)
 {
-	char *nextToken = NULL;
+	static char *nextToken = NULL;
 	char *token;
 
 	if (str != NULL)
+	{
 		nextToken = str;
+	}
 
 	if (nextToken == NULL)
+	{
 		return (NULL);
+	}
 
 	nextToken += _strspn(nextToken, delimiters);
 
@@ -53,6 +58,7 @@ char *_strtok(char *str, char *delimiters)
 	}
 
 	token = nextToken;
+
 	nextToken = _strpbrk(nextToken, delimiters);
 
 	if (nextToken != NULL)
