@@ -11,10 +11,15 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-extern char **environ;
+void interact(void);
+int failed(int len);
 
-char *read_in(void);
-char **split(char *str);
-int execute(char **command, char **av);
+void print_env(char **env);
+int envcheck(char *ag, char **env);
+
+int execute(char **line, char *path, char **av);
+
+
+char **tokenize(char *str);
 
 #endif

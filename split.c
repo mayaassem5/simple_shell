@@ -1,47 +1,29 @@
 #include "simple_shell.h"
+/**
+ * tokenize - split input
+ * 
+ * @str: string
+ *
+ * Return: array of words
+ */
 
-char **split(char *str) {
-    char **tokens = NULL;
-    int token_count = 0, i = 0;
-    char *token = NULL; 
-    char *tmp = NULL;
-    char delimiters[] = " \t\n";
+char **tokenize(char *str)
+{
+    char *token;
+    char **tokens;
+    int i = 0;
 
-    if (!str)
+    tokens = malloc(sizeof(char *) * 100);
+    if (tokens == NULL)
         return (NULL);
 
-    tmp = strdup(str);
-    token = strtok(tmp, delimiters);
-    if (token == NULL)
+    token = strtok(str, " ");
+    while (token != NULL)
     {
-        free(str);
-        free(tmp);
-        return (NULL);
+        tokens[i++] = token;
+        token = strtok(NULL, " ");
     }
-
-    while (token)
-    {
-        token_count++;
-        token = strtok(NULL, delimiters);
-    }
-    free(tmp);
-    tmp = NULL;
-
-    tokens = malloc(sizeof(char *) * (token_count + 1));
-    if (!tokens)
-    {
-        free(tokens);
-        return (NULL);
-    }
-    token = strtok(str, delimiters);
-    while(token)
-    {
-        tokens[i] = strdup(token);
-        token = strtok(NULL, delimiters);
-        i++;
-    }
-    
-    free(str);
     tokens[i] = NULL;
+    free(token);
     return (tokens);
 }

@@ -6,35 +6,53 @@
 *
 *@ac: arg counts
 *@av: arg vectors
+*@env: env arg
 *
 *Return: 0 always
 */
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **env)
 {
-    char *ptr;
-    char **inp;
-    int state;
-    ptr = NULL;
-    inp = NULL;
-    state = 0;
-    (void)ac; (void)av;
+    size_t n = 0;
+    char *line = NULL;
+    ssize_t inp = 0, exec = 0;
+    char **split;
+    char *pathvar = (getenv("PATH")) ? getenv("PATH") : "";
+    char *path = strdup(pathvar);
+    (void)ac;
 
+    interact();
     while(1)
     {
-        ptr = read_in();
-        if (!ptr)
+        inp = getline(&line, &n, stdin);
+        if (failed(inp))
+            break;
+
+        line[inp - 1] = '\0';
+        if (strlen(line) == 0)
         {
-            if (isatty(STDIN_FILENO))
-                write(STDOUT_FILENO, "\n", 1);
-            return state;
-        }
-        inp = split(ptr);
-        if (!inp)
+            interact();
             continue;
+        }
 
-       state = execute(inp, av);
+        split = tokenize(line);
+        if (!split[0])
+            continue;
+        if (envcheck(split[0], env))
+        {
+            interact();
+            continue;
+        }
+        if (!strcmp(split[0], "exit"))
+            break;
+        free(path);
+        path = strdup(pathvar);
+        exec = execute(split, path, av);
+        free(line), line = NULL;
+        free(split), split = NULL;
     }
-
-    return 0;
+    free(line);
+    free(split);
+    free(path);
+    exit(exec);
 }

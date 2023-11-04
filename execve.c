@@ -1,42 +1,54 @@
 #include "simple_shell.h"
 
-int execute(char **command, char **av)
-{
-	pid_t child_pid;
-    int status, i;
+/**
+ * execute - execute
+ * @line: string
+ * @path: path
+ * @av: args
+ *
+ * Return: void
+ */
 
-    child_pid = fork();
-    if (child_pid == -1)
+int execute(char **line, char *path, char **av)
+{
+    int status;
+    char *tok = strtok(path, ":");
+    char final_cmd[1000];
+
+    pid_t child;
+    while (tok != NULL)
     {
-        perror("Error:");
-        exit(EXIT_FAILURE);
-    }
-    
-    if (child_pid == 0)
-    {
-        if (execve(command[0], command, environ) == -1)
+        final_cmd[0] = '\0';
+        if (strchr(line[0], '/') == NULL)
         {
-            perror(av[0]);
-            for(i = 0; command[i]; i++)
-            {
-                free(command[i]);
-                command[i] = NULL;
-            }
-            exit(EXIT_FAILURE);
+            strcat(final_cmd, tok);
+            strcat(final_cmd, "/");
         }
-        free(command);
-    }
-    
-    else
-    {
-        waitpid(child_pid, &status, 0);
-        for(i = 0; command[i]; i++)
+        strcat(final_cmd, line[0]);
+
+        if (access(final_cmd, X_OK) == 0)
+        {
+            child = fork();
+            if (child < 0)
+                perror("\n");
+            else if (child == 0)
             {
-                free(command[i]);
-                command[i] = NULL;
+                if (execve(final_cmd, line, av) == -1)
+                {
+                    perror(av[0]);
+                    exit(1);
+                }
             }
-        free(command);
+            else
+            {
+                wait(&status);
+                interact();
+                if (WIFEXITED(status))
+                    return WEXITSTATUS(status);
+            }
+        }
+        tok = strtok(NULL, ":");
     }
-    
-    return (WEXITSTATUS(status));
+    printf("%s: 1: %s: not found\n", av[0], line[0]);
+    return (-1);
 }
