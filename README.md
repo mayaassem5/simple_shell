@@ -1,2 +1,1 @@
-#!/bin/bash
-simple_shell
+simple_shell_project
