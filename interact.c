@@ -8,9 +8,10 @@
 void interact(void)
 {
 	int interactive_mode = isatty(fileno(stdin));
+	const char *prompt = "~$ ";
 
 	if (interactive_mode)
-		printf("~$ ");
+		write(STDOUT_FILENO, prompt, _strlen(prompt));
 }
 
 /**
@@ -23,10 +24,12 @@ void interact(void)
 
 int failed(int len)
 {
+	const char *prompt = "~$ ";
+
 	if (len <= 0)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("~$ ");
+			write(STDOUT_FILENO, prompt, _strlen(prompt));
 		return (1);
 	}
 	return (0);
