@@ -22,4 +22,7 @@ int execute(char **line, char *path, char **av);
 
 char **tokenize(char *str);
 
+int _strlen(char *s);
+char *_strchr(char *s, char c);
+
 #endif
