@@ -12,28 +12,28 @@
 int execute(char **line, char *path, char **av)
 {
 	int status;
-	char *tok = strtok(path, ":");
-	char final_cmd[1000];
+	char *x = strtok(path, ":");
+	char command[1000];
 	pid_t child;
 
-	while (tok != NULL)
+	while (x != NULL)
 	{
-		final_cmd[0] = '\0';
+		command[0] = '\0';
 		if (strchr(line[0], '/') == NULL)
 		{
-			strcat(final_cmd, tok);
-			strcat(final_cmd, "/");
+			strcat(command, x);
+			strcat(command, "/");
 		}
 
-		strcat(final_cmd, line[0]);
-		if (access(final_cmd, X_OK) == 0)
+		strcat(command, line[0]);
+		if (access(command, X_OK) == 0)
 		{
 			child = fork();
 			if (child < 0)
 				perror("\n"), exit(99);
 			else if (child == 0)
 			{
-				if (execve(final_cmd, line, av) == -1)
+				if (execve(command, line, av) == -1)
 					perror(av[0]), exit(99);
 			}
 			else
