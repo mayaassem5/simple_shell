@@ -19,7 +19,7 @@ int execute(char **line, char *path, char **av)
 	while (x != NULL)
 	{
 		command[0] = '\0';
-		if (strchr(line[0], '/') == NULL)
+		if (_strchr(line[0], '/') == NULL)
 		{
 			strcat(command, x);
 			strcat(command, "/");

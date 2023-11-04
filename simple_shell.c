@@ -27,7 +27,7 @@ int main(int ac, char **av, char **env)
 		if (failed(inp))
 			break;
 		line[inp - 1] = '\0';
-		if (strlen(line) == 0)
+		if (_strlen(line) == 0)
 		{
 			interact();
 			continue;
