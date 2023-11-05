@@ -13,10 +13,9 @@
 int main(int ac, char **av, char **env)
 {
 	size_t n = 0;
-	char *line = NULL;
+	char *line = NULL, *wanted = "PATH";
 	ssize_t inp = 0, exec = 0;
 	char **split;
-	char *wanted = "PATH";
 	char *pathvar = (_getenv(env, wanted)) ? _getenv(env, wanted) : "";
 	char *path = _strdup(pathvar);
 	(void)ac;

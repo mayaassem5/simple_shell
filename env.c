@@ -40,7 +40,7 @@ int envcheck(char *ag, char **env)
 }
 
 /**
- * envcheck - checks env
+ * _getenv - checks env
  *
  * @wanted: wanted
  * @env: env
@@ -54,11 +54,11 @@ char *_getenv(char **env, char *wanted)
 
 	len = _strlen(wanted);
 
-	while(*env)
+	while (*env)
 	{
-		for(i = 0; i < len; i++)
+		for (i = 0; i < len; i++)
 		{
-			if(wanted[i] != (*env)[i])
+			if (wanted[i] != (*env)[i])
 				break;
 		}
 		if (i == len)
