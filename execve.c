@@ -22,11 +22,11 @@ int execute(char **line, char *path, char **av)
 		command[0] = '\0';
 		if (_strchr(line[0], '/') == NULL)
 		{
-			strcat(command, x);
-			strcat(command, "/");
+			_strcat(command, x);
+			_strcat(command, "/");
 		}
 
-		strcat(command, line[0]);
+		_strcat(command, line[0]);
 		if (access(command, X_OK) == 0)
 		{
 			child = fork();

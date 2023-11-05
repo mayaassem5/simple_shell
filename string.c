@@ -83,3 +83,26 @@ char *_strdup(char *str)
 
 	return (strout);
 }
+
+/**
+ * _strcat - returns a pointer to a concenatde string
+ * @dest: string.
+ * @src: source str
+ *
+ * Return: pointer of an array of chars
+ */
+char *_strcat(char *dest, char *src)
+{
+	char *p = dest;
+
+	while (*p)
+		p++;
+	while (*src)
+	{
+		*p = *src;
+		p++;
+		src++;
+	}
+	*p = '\0';
+	return (dest);
+}
