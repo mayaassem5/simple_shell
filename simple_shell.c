@@ -39,7 +39,6 @@ int main(int ac, char **av, char **env)
 		if (envcheck(split[0], env))
 		{
 			interact();
-			free(split);
 			continue;
 		}
 		if (!_strcmp(split[0], "exit"))
@@ -51,8 +50,7 @@ int main(int ac, char **av, char **env)
 		free(split), split = NULL;
 	}
 	free(line);
-	if (inp != -1)
-		free(split);
+	free(split);
 	free(path);
 	exit(exec);
 }
