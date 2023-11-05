@@ -67,3 +67,4 @@ char *_getenv(char **env, char *wanted)
 	}
 	return (NULL);
 }
+
