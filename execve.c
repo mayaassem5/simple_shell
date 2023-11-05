@@ -39,7 +39,7 @@ int execute(char **line, char *path, char **av)
 			}
 			else
 			{
-				waitpid(child, &status, 0);
+				wait(&status);
 				interact();
 				if (WIFEXITED(status))
 					return (WEXITSTATUS(status));
@@ -51,5 +51,5 @@ int execute(char **line, char *path, char **av)
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, line[0], _strlen(line[0]));
 	write(STDERR_FILENO, ": not found\n", 12);
-	return (WEXITSTATUS(status));
+	return (status);
 }
