@@ -48,7 +48,7 @@ int execute(char **line, char *path, char **av)
 		x = _strtok(NULL, deli);
 	}
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
-	write(STDERR_FILENO, " 1: ", 4);
+	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, line[0], _strlen(line[0]));
 	write(STDERR_FILENO, ": not found\n", 12);
 	return (-1);
