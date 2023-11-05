@@ -26,6 +26,7 @@ int _strlen(char *s);
 char *_strchr(char *s, char c);
 char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
+char *_strcat(char *dwest, char *src);
 
 unsigned int _strspn(char *s, char *accept);
 char *_strtok(char *str, char *delimiters);
