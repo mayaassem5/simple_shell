@@ -14,7 +14,7 @@ void print_env(char **env)
 
 	while (env[i] != NULL)
 	{
-		write(STDOUT_FILENO, env[i], strlen(env[i]));
+		write(STDOUT_FILENO, env[i], _strlen(env[i]));
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
@@ -31,10 +31,39 @@ void print_env(char **env)
 
 int envcheck(char *ag, char **env)
 {
-	if (!strcmp(ag, "env"))
+	if (!_strcmp(ag, "env"))
 	{
 		print_env(env);
 		return (1);
 	}
 	return (0);
+}
+
+/**
+ * envcheck - checks env
+ *
+ * @wanted: wanted
+ * @env: env
+ *
+ * Return: 0
+*/
+
+char *_getenv(char **env, char *wanted)
+{
+	int i, len;
+
+	len = _strlen(wanted);
+
+	while(*env)
+	{
+		for(i = 0; i < len; i++)
+		{
+			if(wanted[i] != (*env)[i])
+				break;
+		}
+		if (i == len)
+			return (&(*env)[i + 1]);
+		env++;
+	}
+	return (NULL);
 }

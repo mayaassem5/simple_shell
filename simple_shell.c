@@ -16,7 +16,7 @@ int main(int ac, char **av, char **env)
 	char *line = NULL;
 	ssize_t inp = 0, exec = 0;
 	char **split;
-	char *pathvar = (getenv("PATH")) ? getenv("PATH") : "";
+	char *pathvar = (_getenv(env, "PATH")) ? _getenv(env, "PATH") : "";
 	char *path = _strdup(pathvar);
 	(void)ac;
 
@@ -38,6 +38,7 @@ int main(int ac, char **av, char **env)
 		if (envcheck(split[0], env))
 		{
 			interact();
+			free(split);
 			continue;
 		}
 		if (!_strcmp(split[0], "exit"))
@@ -49,7 +50,8 @@ int main(int ac, char **av, char **env)
 		free(split), split = NULL;
 	}
 	free(line);
-	free(split);
+	if (inp != -1)
+		free(split);
 	free(path);
 	exit(exec);
 }

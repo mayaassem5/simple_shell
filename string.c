@@ -42,17 +42,16 @@ int _strlen(char *s)
 
 int _strcmp(char *s1, char *s2)
 {
-	int i = 0, op = 0;
+	int i;
 
-	while (op == 0)
+	if (_strlen(s1) != _strlen(s2))
+		return (1);
+	for (i = 0; s1[i]; i++)
 	{
-		if ((*(s1 + i) == '\0') && (*(s2 + i) == '\0'))
-			break;
-		op = *(s1 + i) - *(s2 + i);
-		i++;
+		if(s1[i] != s2[i])
+			return (1);
 	}
-
-	return (op);
+	return (0);
 }
 
 /**

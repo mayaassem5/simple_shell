@@ -16,9 +16,9 @@ int failed(int len);
 
 void print_env(char **env);
 int envcheck(char *ag, char **env);
+char *_getenv(char **env, char *wanted);
 
 int execute(char **line, char *path, char **av);
-
 
 char **tokenize(char *str);
 

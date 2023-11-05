@@ -12,7 +12,8 @@
 int execute(char **line, char *path, char **av)
 {
 	int status;
-	char *x = strtok(path, ":");
+	char *deli = ":";
+	char *x = _strtok(path, deli);
 	char command[1000];
 	pid_t child;
 
@@ -44,7 +45,7 @@ int execute(char **line, char *path, char **av)
 					return (WEXITSTATUS(status));
 			}
 		}
-		x = strtok(NULL, ":");
+		x = _strtok(NULL, deli);
 	}
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, " 1: ", 4);
