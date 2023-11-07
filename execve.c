@@ -49,6 +49,7 @@ int execute(char **line, char *path, char **av)
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, line[0], _strlen(line[0]));
 	write(STDERR_FILENO, ": not found\n", 12);
-	return (127);
+	interact();
+	return (-1);
 }
 
