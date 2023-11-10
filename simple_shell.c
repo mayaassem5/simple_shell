@@ -1,56 +1,48 @@
 #include "simple_shell.h"
-
 /**
- * main - Entry point of the program.
- *
- * @ac: Number of command-line arguments.
- * @av: Array of command-line arguments.
- * @env: Array of environment variables.
- *
- * Return: 0 for success.
+ * main - UNIX
+ * Return: Always 0 (Success)
  */
+int main(void)
+{	pid_t child;
+	char *line = NULL, **command = NULL;
+	size_t l = 0;
+	int status = 0, r = 0;
 
-int main(int ac, char **av, char **env)
-{
-	size_t n = 0;
-	char *line = NULL, *wanted = "PATH";
-	ssize_t inp = 0, exec = 0;
-	char **split;
-	char *pathvar = (_getenv(env, wanted)) ? _getenv(env, wanted) : "";
-	char *path = _strdup(pathvar);
-	(void)ac;
-
-	interact();
 	while (1)
 	{
-		inp = getline(&line, &n, stdin);
-		if (failed(inp))
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
+		if (getline(&line, &l, stdin) == EOF)
 			break;
-		line[inp - 1] = '\0';
-		if (_strlen(line) == 0)
+		if (*line == '\n' || *line == '\t')
+			continue;
+		command = split(line);
+		if (command == NULL)
+			continue;
+		if (built(line, command, &r) == 0)
 		{
-			interact();
-			continue;
+			child = fork();
+			if (child == 0)
+			{
+				if (execve(findpath(command[0], &r), command, environ) == -1)
+				{
+					freep(line, command);
+					exit(r);
+				}
+			}
+			else
+			{
+				wait(&status);
+				freep(line, command);
+				if (WIFEXITED(status))
+					r = WEXITSTATUS(status);
+			}
+			line = NULL;
 		}
-		split = tokenize(line);
-		if (!split[0])
-			continue;
-		if (envcheck(split[0], env))
-		{
-			interact();
-			continue;
-		}
-		if (!_strcmp(split[0], "exit"))
-			break;
-		free(path);
-		path = _strdup(pathvar);
-		exec = execute(split, path, av);
-		free(line), line = NULL;
-		free(split), split = NULL;
+		else
+			freepointer(command);
 	}
 	free(line);
-	free(split);
-	free(path);
-	exit(exec);
+	exit(status);
 }
-
