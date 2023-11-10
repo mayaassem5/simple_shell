@@ -12,7 +12,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$ ", 2);
+			write(STDOUT_FILENO, "~$ ", 2);
 		if (getline(&line, &l, stdin) == EOF)
 			break;
 		if (*line == '\n' || *line == '\t')
