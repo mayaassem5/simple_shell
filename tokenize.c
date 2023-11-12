@@ -1,7 +1,7 @@
 #include "simple_shell.h"
 
 /**
- * find_length - calculate the lenght of command line
+ * len - calculate the lenght
  *@s: char pointer
  * Return: length of pointer
  */
@@ -60,3 +60,4 @@ char **split(char *str)
 	command[i] = NULL;
 	return (command);
 }
+
