@@ -5,7 +5,7 @@
  */
 int main(void)
 {	pid_t child;
-	char *line = NULL, **command = NULL;
+	char *line = NULL, **command = NULL, *path;
 	size_t l = 0;
 	int status = 0, r = 0;
 
@@ -25,7 +25,13 @@ int main(void)
 			child = fork();
 			if (child == 0)
 			{
-				if (execve(findpath(command[0], &r), command, environ) == -1)
+				path = findpath(command[0], &r);
+				if (path == NULL)
+				{
+					freep(line, command);
+					exit(EXIT_FAILURE);
+				}
+				if (execve(path, command, environ) == -1)
 				{
 					freep(line, command);
 					exit(r);
