@@ -24,7 +24,6 @@ char *findpath(char *command, int *r)
 		current = _concat(tok, command);
 		if (stat(current, &stats) == 0)
 		{
-			free(command);
 			return (current);
 		}
 		free(current);

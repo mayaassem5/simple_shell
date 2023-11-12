@@ -8,6 +8,12 @@
 unsigned int len(char *s)
 {
 	unsigned int count = 0, i = 0, f = 0;
+	char *s_copy = _strdup(s);
+
+	if (s_copy == NULL)
+		return (0);
+
+	s_copy[_strlen(s_copy) - 1] = '\0';
 
 	while (s[i] != '\0')
 	{
@@ -20,6 +26,7 @@ unsigned int len(char *s)
 		}
 		++i;
 	}
+	free(s_copy);
 	return (count);
 }
 
@@ -41,17 +48,26 @@ char **split(char *str)
 
 	command = malloc((sizeof(char *) * (leng + 1)));
 	if (command == NULL)
-		return ('\0');
+	{
+		freepointer(command);
+		return (NULL);
+	}
 
 	i = 0;
 	tok = strtok(str, deli);
+	if (tok == NULL)
+	{
+		freepointer(command);
+		return (NULL);
+	}
+
 	while (tok != NULL)
 	{
 		command[i] = malloc(_strlen(tok) + 1);
 		if (command[i] == NULL)
 		{
 			freepointer(command);
-			return ('\0');
+			return (NULL);
 		}
 		_strncpy(command[i], tok, _strlen(tok) + 1);
 		tok = strtok(NULL, deli);
