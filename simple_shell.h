@@ -3,6 +3,8 @@
 
 #define _GNU_SOURCE
 
+#define CHECK_NULL(x) if (x == NULL) continue;
+
 #include <stdio.h>
 #include <stddef.h>
 #include <unistd.h>

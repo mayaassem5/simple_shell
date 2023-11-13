@@ -18,8 +18,7 @@ int main(void)
 		if (*line == '\n' || *line == '\t')
 			continue;
 		command = split(line);
-		if (command == NULL)
-			continue;
+		CHECK_NULL(command);
 		if (built(line, command, &r) == 0)
 		{
 			child = fork();
