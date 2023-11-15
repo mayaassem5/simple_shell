@@ -46,6 +46,6 @@ void _puts(char *str);
 int _putchar(char c);
 
 int _PATHstrcmp(const char *s1, const char *s2);
-
+int _strcmp(const char *s1, const char *s2);
 #endif
 
