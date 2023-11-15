@@ -6,22 +6,35 @@
  */
 char *_getenv(const char *name)
 {
-	char *value;
-	int len = _strlen((char *)name);
-	char **env = environ;
+	int i, result;
 
-	if (name == NULL || name[len] != '\0')
-		return (NULL);
-
-	while (*env != NULL)
+	for (i = 0; environ[i]; i++)
 	{
-		if (_strncmp(*env, (char *)name, len) == 0 && env[0][len] == '=')
+		result = _PATHstrcmp(name, environ[i]);
+		if (result == 0)
 		{
-			value = _strdup(*env + len + 1);
-			return (value);
+			return (environ[i]);
 		}
-		env++;
 	}
 	return (NULL);
+}
+
+/**
+ * _PATHstrcmp - compares PATH with environ to find PATH value
+ * @s1: pointer PATH string
+ * @s2: pointer to environ string with actual value
+ *
+ * Return: 0 on success
+ */
+int _PATHstrcmp(const char *s1, const char *s2)
+{
+	int i;
+
+	for (i = 0; s2[i] != '='; i++)
+	{
+		if (s1[i] != s2[i])
+			return (-1);
+	}
+	return (0);
 }
 

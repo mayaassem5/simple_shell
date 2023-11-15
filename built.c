@@ -33,18 +33,31 @@ int built(char *line, char **command, int *retVal)
  */
 void env(char **environ)
 {
-	unsigned int i, len;
+	int i;
 
-	if (environ == NULL)
-		return;
+	for (i = 0; environ[i]; i++)
+		puts(environ[i]);
+}
+/**
+ * _puts - prints a string
+ * @str: string to print
+ */
+void _puts(char *str)
+{
+	int c;
 
-	i = 0;
-	while (environ[i])
-	{
-		len = _strlen(environ[i]);
-		write(STDOUT_FILENO, environ[i], len);
-		write(STDOUT_FILENO, "\n", 1);
-		++i;
-	}
+	for (c = 0; str[c] != '\0'; c++)
+		_putchar(str[c]);
+	_putchar('\n');
+}
+/**
+ * _putchar - prints a character
+ * @c: character to print
+ *
+ * Return: return value of write syscall
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
 }
 

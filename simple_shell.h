@@ -42,5 +42,10 @@ void printstr(char *str, int new_line);
 int printnum(int n);
 int _write(char c);
 
+void _puts(char *str);
+int _putchar(char c);
+
+int _PATHstrcmp(const char *s1, const char *s2);
+
 #endif
 
