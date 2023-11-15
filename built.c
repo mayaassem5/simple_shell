@@ -35,6 +35,9 @@ void env(char **environ)
 {
 	unsigned int i, len;
 
+	if (environ == NULL)
+		return;
+
 	i = 0;
 	while (environ[i])
 	{
