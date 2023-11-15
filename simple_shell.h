@@ -3,7 +3,7 @@
 
 #define _GNU_SOURCE
 
-#define CHECK_NULL(x) if (x == NULL) continue;
+#define CHECK_NULL(x) do { if (x == NULL) continue; } while (0)
 
 #include <stdio.h>
 #include <stddef.h>
